@@ -1,0 +1,222 @@
+{
+  "cases": 33,
+  "lanes": [
+    "native",
+    "ir-native",
+    "rv-reference",
+    "rv-ir",
+    "rv-asm"
+  ],
+  "checks": 165,
+  "passed": 165,
+  "date": "2026-10-03",
+  "clean_build": true,
+  "python_syntax_checked": true,
+  "environment": {
+    "system": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "tools": [
+      {
+        "key": "CC",
+        "command": [
+          "gcc"
+        ],
+        "path": "/usr/bin/gcc",
+        "required": true,
+        "version": [
+          "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+          "Copyright (C) 2021 Free Software Foundation, Inc.",
+          "This is free software; see the source for copying conditions.  There is NO"
+        ]
+      },
+      {
+        "key": "CLANG",
+        "command": [
+          "clang-14"
+        ],
+        "path": "/usr/bin/clang-14",
+        "required": true,
+        "version": [
+          "Ubuntu clang version 14.0.0-1ubuntu1.1",
+          "Target: x86_64-pc-linux-gnu",
+          "Thread model: posix"
+        ]
+      },
+      {
+        "key": "LLVM_AS",
+        "command": [
+          "llvm-as-14"
+        ],
+        "path": "/usr/bin/llvm-as-14",
+        "required": true,
+        "version": [
+          "Ubuntu LLVM version 14.0.0",
+          "  ",
+          "  Optimized build."
+        ]
+      },
+      {
+        "key": "OPT",
+        "command": [
+          "opt-14"
+        ],
+        "path": "/usr/bin/opt-14",
+        "required": true,
+        "version": [
+          "Ubuntu LLVM version 14.0.0",
+          "  ",
+          "  Optimized build."
+        ]
+      },
+      {
+        "key": "LLC",
+        "command": [
+          "llc-14"
+        ],
+        "path": "/usr/bin/llc-14",
+        "required": true,
+        "version": [
+          "Ubuntu LLVM version 14.0.0",
+          "  ",
+          "  Optimized build."
+        ]
+      },
+      {
+        "key": "RV_CC",
+        "command": [
+          "riscv64-linux-gnu-gcc"
+        ],
+        "path": "/usr/bin/riscv64-linux-gnu-gcc",
+        "required": true,
+        "version": [
+          "riscv64-linux-gnu-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0",
+          "Copyright (C) 2021 Free Software Foundation, Inc.",
+          "This is free software; see the source for copying conditions.  There is NO"
+        ]
+      },
+      {
+        "key": "QEMU",
+        "command": [
+          "/opt/qemu/bin/qemu-riscv64"
+        ],
+        "path": "/opt/qemu/bin/qemu-riscv64",
+        "required": true,
+        "version": [
+          "qemu-riscv64 version 7.0.0",
+          "Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers"
+        ]
+      },
+      {
+        "key": "MLIR_OPT",
+        "command": [
+          "mlir-opt-14"
+        ],
+        "path": "/usr/bin/mlir-opt-14",
+        "required": false,
+        "version": [
+          "Ubuntu LLVM version 14.0.0",
+          "  ",
+          "  Optimized build."
+        ]
+      },
+      {
+        "key": "MLIR_TRANSLATE",
+        "command": [
+          "mlir-translate-14"
+        ],
+        "path": "/usr/bin/mlir-translate-14",
+        "required": false,
+        "version": [
+          "Ubuntu LLVM version 14.0.0",
+          "  ",
+          "  Optimized build."
+        ]
+      },
+      {
+        "key": "BISHENGIR",
+        "command": [
+          "bishengir-compile"
+        ],
+        "path": null,
+        "required": false
+      }
+    ],
+    "rv_target": "riscv64-linux-gnu"
+  },
+  "mlir": {
+    "expected": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 \n136\n",
+    "stdout": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 \n136\n",
+    "exit_code": 0,
+    "commands": [
+      {
+        "artifact": "01-input.mlir",
+        "command": [
+          "mlir-opt-14",
+          "mlir/vecadd.mlir"
+        ]
+      },
+      {
+        "artifact": "02-control-flow.mlir",
+        "command": [
+          "mlir-opt-14",
+          "${PROJECT}/results/mlir/01-input.mlir",
+          "--convert-scf-to-std"
+        ]
+      },
+      {
+        "artifact": "03-llvm-dialect.mlir",
+        "command": [
+          "mlir-opt-14",
+          "${PROJECT}/results/mlir/02-control-flow.mlir",
+          "--convert-memref-to-llvm",
+          "--convert-arith-to-llvm",
+          "--convert-std-to-llvm",
+          "--reconcile-unrealized-casts"
+        ]
+      },
+      {
+        "artifact": "04-llvm.ll",
+        "command": [
+          "mlir-translate-14",
+          "${PROJECT}/results/mlir/03-llvm-dialect.mlir",
+          "--mlir-to-llvmir"
+        ]
+      }
+    ],
+    "backend": "native upstream MLIR; not Ascend NPU"
+  },
+  "course_runtime": {
+    "link_command": [
+      "riscv64-linux-gnu-gcc",
+      "-march=rv64gc",
+      "-mabi=lp64d",
+      "asm/echo.s",
+      "runtime/course-libsysy_riscv.a",
+      "-static",
+      "-o",
+      "${PROJECT}/results/course-runtime-probe/echo"
+    ],
+    "link_exit_code": 1,
+    "status": "link-failed",
+    "runtime_executed": false,
+    "diagnosis": "Course archive depends on Newlib _impure_ptr; Linux/glibc cannot resolve it. Rebuild sylib.c with the Linux cross compiler."
+  },
+  "optimization": [
+    {
+      "optimization": 0,
+      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    184\t      0\t      0\t    184\t     b8\t${PROJECT}/results/inspection/factorial.O0.o\n"
+    },
+    {
+      "optimization": 2,
+      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    124\t      0\t      0\t    124\t     7c\t${PROJECT}/results/inspection/factorial.O2.o\n"
+    }
+  ],
+  "ascend": {
+    "status": "unavailable",
+    "tool": [
+      "bishengir-compile"
+    ],
+    "npu_executed": false,
+    "reason": "AscendNPU IR compiler is not installed; see mlir/README.md for sourced analysis."
+  }
+}

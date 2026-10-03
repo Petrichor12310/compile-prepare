@@ -1,0 +1,18 @@
+// Main example: calls, constants, short circuit, branches and a loop.
+const int limit = 12;
+int factorial(int n) {
+    if (n < 0 || n > limit) return -1;
+    int product = 1;
+    int i = 2;
+    while (i <= n) {
+        product = product * i;
+        i = i + 1;
+    }
+    return product;
+}
+int main() {
+    int n = getint();
+    putint(factorial(n));
+    putch(10);
+    return 0;
+}

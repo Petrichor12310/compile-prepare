@@ -1,0 +1,200 @@
+[
+  {
+    "sample": "echo",
+    "name": "echo_-2147483648",
+    "stdin": "-2147483648\n",
+    "expected": "-2147483648\n"
+  },
+  {
+    "sample": "echo",
+    "name": "echo_-7",
+    "stdin": "-7\n",
+    "expected": "-7\n"
+  },
+  {
+    "sample": "echo",
+    "name": "echo_0",
+    "stdin": "0\n",
+    "expected": "0\n"
+  },
+  {
+    "sample": "echo",
+    "name": "echo_7",
+    "stdin": "7\n",
+    "expected": "7\n"
+  },
+  {
+    "sample": "echo",
+    "name": "echo_2147483647",
+    "stdin": "2147483647\n",
+    "expected": "2147483647\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_-2147483648",
+    "stdin": "-2147483648\n",
+    "expected": "-1\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_-1",
+    "stdin": "-1\n",
+    "expected": "-1\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_0",
+    "stdin": "0\n",
+    "expected": "1\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_1",
+    "stdin": "1\n",
+    "expected": "1\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_2",
+    "stdin": "2\n",
+    "expected": "2\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_5",
+    "stdin": "5\n",
+    "expected": "120\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_10",
+    "stdin": "10\n",
+    "expected": "3628800\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_12",
+    "stdin": "12\n",
+    "expected": "479001600\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_13",
+    "stdin": "13\n",
+    "expected": "-1\n"
+  },
+  {
+    "sample": "factorial",
+    "name": "factorial_2147483647",
+    "stdin": "2147483647\n",
+    "expected": "-1\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_-2147483648",
+    "stdin": "-2147483648\n",
+    "expected": "10 0\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_-5",
+    "stdin": "-5\n",
+    "expected": "10 0\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_0",
+    "stdin": "0\n",
+    "expected": "11 1\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_1",
+    "stdin": "1\n",
+    "expected": "111 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_2",
+    "stdin": "2\n",
+    "expected": "111 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_3",
+    "stdin": "3\n",
+    "expected": "114 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_8",
+    "stdin": "8\n",
+    "expected": "126 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_9",
+    "stdin": "9\n",
+    "expected": "135 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_10",
+    "stdin": "10\n",
+    "expected": "135 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_12",
+    "stdin": "12\n",
+    "expected": "135 2\n"
+  },
+  {
+    "sample": "control_scope",
+    "name": "control_2147483647",
+    "stdin": "2147483647\n",
+    "expected": "135 2\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_0_5",
+    "stdin": "0 5\n",
+    "expected": "0x1.ep+3\n15\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_2_1.5",
+    "stdin": "2 1.5\n",
+    "expected": "0x1.bp+3\n13\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_-1_-1.25",
+    "stdin": "-1 -1.25\n",
+    "expected": "0x1.fp+2\n7\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_-20_0.5",
+    "stdin": "-20 0.5\n",
+    "expected": "-0x1.3p+3\n-9\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_0_-10",
+    "stdin": "0 -10\n",
+    "expected": "0x0p+0\n0\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_1_0.1",
+    "stdin": "1 0.1\n",
+    "expected": "0x1.633334p+3\n11\n"
+  },
+  {
+    "sample": "array_float",
+    "name": "array_5_-20.25",
+    "stdin": "5 -20.25\n",
+    "expected": "-0x1.5p+2\n-5\n"
+  }
+]

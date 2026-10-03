@@ -1,0 +1,7 @@
+// Minimal runtime and signed int boundary check.
+int main() {
+    int value = getint();
+    putint(value);
+    putch(10);
+    return 0;
+}

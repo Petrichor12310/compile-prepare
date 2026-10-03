@@ -1,0 +1,28 @@
+// tick() makes short-circuit evaluation observable.
+int probes = 0;
+int tick() {
+    probes = probes + 1;
+    return 1;
+}
+int main() {
+    int n = getint();
+    int total = 0;
+    int i = 0;
+    while (i < n) {
+        i = i + 1;
+        if (i % 2 == 0) continue;
+        if (i > 9) break;
+        {
+            int n = i; // Shadows the outer input only inside this block.
+            total = total + n;
+        }
+    }
+    if (n > 0 && tick()) total = total + 100;
+    if (n < 0 || tick()) total = total + 10;
+    if (!n) total = total + 1;
+    putint(total);
+    putch(32);
+    putint(probes);
+    putch(10);
+    return 0;
+}

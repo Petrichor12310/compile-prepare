@@ -1,0 +1,22 @@
+// Row-major array storage, row decay, single precision and conversion.
+float sum(float row[], int n) {
+    float result = 0.0;
+    int i = 0;
+    while (i < n) {
+        result = result + row[i];
+        i = i + 1;
+    }
+    return result;
+}
+int main() {
+    float a[2][3] = {{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}};
+    int bias = getint();
+    float x = getfloat();
+    a[1][1] = x;
+    float result = sum(a[1], 3) + bias;
+    putfloat(result);
+    putch(10);
+    putint(result);
+    putch(10);
+    return 0;
+}
