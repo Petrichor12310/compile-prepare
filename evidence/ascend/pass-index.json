@@ -1,0 +1,854 @@
+[
+  {
+    "index": 1,
+    "pass": "canonicalize-module",
+    "header": "CanonicalizeModule (canonicalize-module) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/001-canonicalize-module.mlir"
+  },
+  {
+    "index": 2,
+    "pass": "hacc-append-device-spec",
+    "header": "AppendTargetDeviceSpec (hacc-append-device-spec) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/002-hacc-append-device-spec.mlir"
+  },
+  {
+    "index": 3,
+    "pass": "convert-hfusion-to-hivm",
+    "header": "ConvertHFusionToHIVM (convert-hfusion-to-hivm) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/003-convert-hfusion-to-hivm.mlir"
+  },
+  {
+    "index": 4,
+    "pass": "convert-tensor-to-hivm",
+    "header": "ConvertTensorToHIVM (convert-tensor-to-hivm) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/004-convert-tensor-to-hivm.mlir"
+  },
+  {
+    "index": 5,
+    "pass": "convert-to-hivm-op",
+    "header": "ConvertToHIVMOp (convert-to-hivm-op) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/005-convert-to-hivm-op.mlir"
+  },
+  {
+    "index": 6,
+    "pass": "hivm-init-entry-kernel",
+    "header": "InitEntryKernel (hivm-init-entry-kernel) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/006-hivm-init-entry-kernel.mlir"
+  },
+  {
+    "index": 7,
+    "pass": "propagate-reshape",
+    "header": "PropagateReshape (propagate-reshape) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/007-propagate-reshape.mlir"
+  },
+  {
+    "index": 8,
+    "pass": "scf-remove-redundant-loop-init",
+    "header": "RemoveRedundantLoopInit (scf-remove-redundant-loop-init) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/008-scf-remove-redundant-loop-init.mlir"
+  },
+  {
+    "index": 9,
+    "pass": "hivm-normalize-matmul",
+    "header": "NormalizeMatmul (hivm-normalize-matmul) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/009-hivm-normalize-matmul.mlir"
+  },
+  {
+    "index": 10,
+    "pass": "hivm-normalize-convops",
+    "header": "NormalizeConvOps (hivm-normalize-convops) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/010-hivm-normalize-convops.mlir"
+  },
+  {
+    "index": 11,
+    "pass": "hivm-normalize-bitwise-select",
+    "header": "NormalizeBitwiseSelect (hivm-normalize-bitwise-select) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/011-hivm-normalize-bitwise-select.mlir"
+  },
+  {
+    "index": 12,
+    "pass": "hivm-inline-fixpipe",
+    "header": "InlineFixpipe (hivm-inline-fixpipe) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/012-hivm-inline-fixpipe.mlir"
+  },
+  {
+    "index": 13,
+    "pass": "hivm-insert-load-store-for-mix-cv",
+    "header": "InsertLoadStoreForMixCV (hivm-insert-load-store-for-mix-cv) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/013-hivm-insert-load-store-for-mix-cv.mlir"
+  },
+  {
+    "index": 14,
+    "pass": "hivm-tile-batchmm-into-loop",
+    "header": "TileBatchMMIntoLoop (hivm-tile-batchmm-into-loop) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/014-hivm-tile-batchmm-into-loop.mlir"
+  },
+  {
+    "index": 15,
+    "pass": "hivm-normalize-matmul",
+    "header": "NormalizeMatmul (hivm-normalize-matmul) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/015-hivm-normalize-matmul.mlir"
+  },
+  {
+    "index": 16,
+    "pass": "hivm-insert-nz2nd-for-debug",
+    "header": "InsertNZ2NDForDebug (hivm-insert-nz2nd-for-debug) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/016-hivm-insert-nz2nd-for-debug.mlir"
+  },
+  {
+    "index": 17,
+    "pass": "hivm-inline-fixpipe",
+    "header": "InlineFixpipe (hivm-inline-fixpipe) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/017-hivm-inline-fixpipe.mlir"
+  },
+  {
+    "index": 18,
+    "pass": "hivm-insert-load-store-for-mix-cv",
+    "header": "InsertLoadStoreForMixCV (hivm-insert-load-store-for-mix-cv) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/018-hivm-insert-load-store-for-mix-cv.mlir"
+  },
+  {
+    "index": 19,
+    "pass": "insert-workspace-for-mix-cv",
+    "header": "InsertWorkSpaceForMixCV (insert-workspace-for-mix-cv) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/019-insert-workspace-for-mix-cv.mlir"
+  },
+  {
+    "index": 20,
+    "pass": "hivm-bind-workspace-arg",
+    "header": "BindWorkSpaceArg (hivm-bind-workspace-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/020-hivm-bind-workspace-arg.mlir"
+  },
+  {
+    "index": 21,
+    "pass": "hivm-infer-func-core-type",
+    "header": "InferFuncCoreType (hivm-infer-func-core-type) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/021-hivm-infer-func-core-type.mlir"
+  },
+  {
+    "index": 22,
+    "pass": "hivm-mark-multi-buffer",
+    "header": "MarkMultiBuffer (hivm-mark-multi-buffer) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/022-hivm-mark-multi-buffer.mlir"
+  },
+  {
+    "index": 23,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/023-canonicalize-ext.mlir"
+  },
+  {
+    "index": 24,
+    "pass": "hivm-inline-otf-broadcast",
+    "header": "InlineOTFBroadcast (hivm-inline-otf-broadcast) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/024-hivm-inline-otf-broadcast.mlir"
+  },
+  {
+    "index": 25,
+    "pass": "cv-pipelining",
+    "header": "CVPipelining (cv-pipelining) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/025-cv-pipelining.mlir"
+  },
+  {
+    "index": 26,
+    "pass": "hivm-auto-infer-buffer-size",
+    "header": "AutoInferBufferSize (hivm-auto-infer-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/026-hivm-auto-infer-buffer-size.mlir"
+  },
+  {
+    "index": 27,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/027-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 28,
+    "pass": "hivm-constantize-buffer-size",
+    "header": "ConstantizeBufferSize (hivm-constantize-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/028-hivm-constantize-buffer-size.mlir"
+  },
+  {
+    "index": 29,
+    "pass": "hivm-set-buffer-size",
+    "header": "SetBufferSize (hivm-set-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/029-hivm-set-buffer-size.mlir"
+  },
+  {
+    "index": 30,
+    "pass": "hivm-plan-memory",
+    "header": "PlanMemory (hivm-plan-memory) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/030-hivm-plan-memory.mlir"
+  },
+  {
+    "index": 31,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/031-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 32,
+    "pass": "scf-canonicalize-iter-arg",
+    "header": "CanonicalizeIterArg (scf-canonicalize-iter-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/032-scf-canonicalize-iter-arg.mlir"
+  },
+  {
+    "index": 33,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/033-canonicalize-ext.mlir"
+  },
+  {
+    "index": 34,
+    "pass": "scf-for-loop-canonicalization",
+    "header": "SCFForLoopCanonicalization (scf-for-loop-canonicalization) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/034-scf-for-loop-canonicalization.mlir"
+  },
+  {
+    "index": 35,
+    "pass": "cse",
+    "header": "CSE (cse) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/035-cse.mlir"
+  },
+  {
+    "index": 36,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/036-canonicalize-ext.mlir"
+  },
+  {
+    "index": 37,
+    "pass": "hivm-opt-single-point",
+    "header": "HIVMOptSinglePointOp (hivm-opt-single-point) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/037-hivm-opt-single-point.mlir"
+  },
+  {
+    "index": 38,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/038-canonicalize-ext.mlir"
+  },
+  {
+    "index": 39,
+    "pass": "memref-dse",
+    "header": "MemrefDeadStoreEliminationOp (memref-dse) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/039-memref-dse.mlir"
+  },
+  {
+    "index": 40,
+    "pass": "hivm-mark-real-core-type",
+    "header": "MarkRealCoreType (hivm-mark-real-core-type) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/040-hivm-mark-real-core-type.mlir"
+  },
+  {
+    "index": 41,
+    "pass": "hivm-cross-core-gss",
+    "header": "CrossCoreGSS (hivm-cross-core-gss) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/041-hivm-cross-core-gss.mlir"
+  },
+  {
+    "index": 42,
+    "pass": "hivm-mark-real-core-type",
+    "header": "MarkRealCoreType (hivm-mark-real-core-type) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/042-hivm-mark-real-core-type.mlir"
+  },
+  {
+    "index": 43,
+    "pass": "hivm-split-mix-kernel",
+    "header": "SplitMixKernel (hivm-split-mix-kernel) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/043-hivm-split-mix-kernel.mlir"
+  },
+  {
+    "index": 44,
+    "pass": "inline-scope",
+    "header": "InlineScope (inline-scope) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/044-inline-scope.mlir"
+  },
+  {
+    "index": 45,
+    "pass": "hivm-bind-sub-block",
+    "header": "TileAndBindSubBlock (hivm-bind-sub-block) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/045-hivm-bind-sub-block.mlir"
+  },
+  {
+    "index": 46,
+    "pass": "fold-tensor-empty",
+    "header": "FoldTensorEmpty (fold-tensor-empty) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/046-fold-tensor-empty.mlir"
+  },
+  {
+    "index": 47,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/047-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 48,
+    "pass": "scf-canonicalize-iter-arg",
+    "header": "CanonicalizeIterArg (scf-canonicalize-iter-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/048-scf-canonicalize-iter-arg.mlir"
+  },
+  {
+    "index": 49,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/049-canonicalize-ext.mlir"
+  },
+  {
+    "index": 50,
+    "pass": "scf-for-loop-canonicalization",
+    "header": "SCFForLoopCanonicalization (scf-for-loop-canonicalization) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/050-scf-for-loop-canonicalization.mlir"
+  },
+  {
+    "index": 51,
+    "pass": "cse",
+    "header": "CSE (cse) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/051-cse.mlir"
+  },
+  {
+    "index": 52,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/052-canonicalize-ext.mlir"
+  },
+  {
+    "index": 53,
+    "pass": "hivm-opt-single-point",
+    "header": "HIVMOptSinglePointOp (hivm-opt-single-point) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/053-hivm-opt-single-point.mlir"
+  },
+  {
+    "index": 54,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/054-canonicalize-ext.mlir"
+  },
+  {
+    "index": 55,
+    "pass": "memref-dse",
+    "header": "MemrefDeadStoreEliminationOp (memref-dse) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/055-memref-dse.mlir"
+  },
+  {
+    "index": 56,
+    "pass": "loop-invariant-code-motion",
+    "header": "LoopInvariantCodeMotion (loop-invariant-code-motion) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/056-loop-invariant-code-motion.mlir"
+  },
+  {
+    "index": 57,
+    "pass": "loop-invariant-subset-hoisting",
+    "header": "LoopInvariantSubsetHoisting (loop-invariant-subset-hoisting) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/057-loop-invariant-subset-hoisting.mlir"
+  },
+  {
+    "index": 58,
+    "pass": "hivm-clone-tensor-empty",
+    "header": "CloneTensorEmpty (hivm-clone-tensor-empty) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/058-hivm-clone-tensor-empty.mlir"
+  },
+  {
+    "index": 59,
+    "pass": "hivm-inline-otf-load-store",
+    "header": "HIVMInlineOTFLoadStore (hivm-inline-otf-load-store) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/059-hivm-inline-otf-load-store.mlir"
+  },
+  {
+    "index": 60,
+    "pass": "one-shot-bufferize",
+    "header": "OneShotBufferize (one-shot-bufferize) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/060-one-shot-bufferize.mlir"
+  },
+  {
+    "index": 61,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/061-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 62,
+    "pass": "scf-canonicalize-iter-arg",
+    "header": "CanonicalizeIterArg (scf-canonicalize-iter-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/062-scf-canonicalize-iter-arg.mlir"
+  },
+  {
+    "index": 63,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/063-canonicalize-ext.mlir"
+  },
+  {
+    "index": 64,
+    "pass": "scf-for-loop-canonicalization",
+    "header": "SCFForLoopCanonicalization (scf-for-loop-canonicalization) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/064-scf-for-loop-canonicalization.mlir"
+  },
+  {
+    "index": 65,
+    "pass": "cse",
+    "header": "CSE (cse) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/065-cse.mlir"
+  },
+  {
+    "index": 66,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/066-canonicalize-ext.mlir"
+  },
+  {
+    "index": 67,
+    "pass": "hivm-opt-single-point",
+    "header": "HIVMOptSinglePointOp (hivm-opt-single-point) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/067-hivm-opt-single-point.mlir"
+  },
+  {
+    "index": 68,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/068-canonicalize-ext.mlir"
+  },
+  {
+    "index": 69,
+    "pass": "memref-dse",
+    "header": "MemrefDeadStoreEliminationOp (memref-dse) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/069-memref-dse.mlir"
+  },
+  {
+    "index": 70,
+    "pass": "drop-equivalent-buffer-results",
+    "header": "DropEquivalentBufferResults (drop-equivalent-buffer-results) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/070-drop-equivalent-buffer-results.mlir"
+  },
+  {
+    "index": 71,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/071-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 72,
+    "pass": "scf-canonicalize-iter-arg",
+    "header": "CanonicalizeIterArg (scf-canonicalize-iter-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/072-scf-canonicalize-iter-arg.mlir"
+  },
+  {
+    "index": 73,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/073-canonicalize-ext.mlir"
+  },
+  {
+    "index": 74,
+    "pass": "scf-for-loop-canonicalization",
+    "header": "SCFForLoopCanonicalization (scf-for-loop-canonicalization) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/074-scf-for-loop-canonicalization.mlir"
+  },
+  {
+    "index": 75,
+    "pass": "cse",
+    "header": "CSE (cse) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/075-cse.mlir"
+  },
+  {
+    "index": 76,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/076-canonicalize-ext.mlir"
+  },
+  {
+    "index": 77,
+    "pass": "hivm-opt-single-point",
+    "header": "HIVMOptSinglePointOp (hivm-opt-single-point) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/077-hivm-opt-single-point.mlir"
+  },
+  {
+    "index": 78,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/078-canonicalize-ext.mlir"
+  },
+  {
+    "index": 79,
+    "pass": "memref-dse",
+    "header": "MemrefDeadStoreEliminationOp (memref-dse) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/079-memref-dse.mlir"
+  },
+  {
+    "index": 80,
+    "pass": "drop-equivalent-buffer-results",
+    "header": "DropEquivalentBufferResults (drop-equivalent-buffer-results) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/080-drop-equivalent-buffer-results.mlir"
+  },
+  {
+    "index": 81,
+    "pass": "convert-to-hivm-op",
+    "header": "ConvertToHIVMOp (convert-to-hivm-op) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/081-convert-to-hivm-op.mlir"
+  },
+  {
+    "index": 82,
+    "pass": "hivm-lift-zero-rank",
+    "header": "LiftZeroRank (hivm-lift-zero-rank) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/082-hivm-lift-zero-rank.mlir"
+  },
+  {
+    "index": 83,
+    "pass": "map-for-to-forall",
+    "header": "MapForToForall (map-for-to-forall) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/083-map-for-to-forall.mlir"
+  },
+  {
+    "index": 84,
+    "pass": "hivm-map-forall-to-blocks",
+    "header": "HIVMMapForallToBlocks (hivm-map-forall-to-blocks) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/084-hivm-map-forall-to-blocks.mlir"
+  },
+  {
+    "index": 85,
+    "pass": "hivm-decompose-op",
+    "header": "HIVMDecomposeOp (hivm-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/085-hivm-decompose-op.mlir"
+  },
+  {
+    "index": 86,
+    "pass": "hivm-sync-block-hoisting",
+    "header": "SyncBlockHoisting (hivm-sync-block-hoisting) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/086-hivm-sync-block-hoisting.mlir"
+  },
+  {
+    "index": 87,
+    "pass": "hivm-bind-sync-block-lock-arg",
+    "header": "BindSyncBlockLockArg (hivm-bind-sync-block-lock-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/087-hivm-bind-sync-block-lock-arg.mlir"
+  },
+  {
+    "index": 88,
+    "pass": "hivm-insert-infer-sync-block-lock-num-and-init-func",
+    "header": "InsertInferSyncBlockLockNumAndInitFunc (hivm-insert-infer-sync-block-lock-num-and-init-func) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/088-hivm-insert-infer-sync-block-lock-num-and-init-func.mlir"
+  },
+  {
+    "index": 89,
+    "pass": "hivm-lower-create-sync-block-lock",
+    "header": "LowerCreateSyncBlockLock (hivm-lower-create-sync-block-lock) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/089-hivm-lower-create-sync-block-lock.mlir"
+  },
+  {
+    "index": 90,
+    "pass": "convert-non-contiguous-reshape-to-copy",
+    "header": "ConvertNonContiguousReshapeToCopy (convert-non-contiguous-reshape-to-copy) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/090-convert-non-contiguous-reshape-to-copy.mlir"
+  },
+  {
+    "index": 91,
+    "pass": "hivm-infer-mem-scope",
+    "header": "InferHIVMMemScope (hivm-infer-mem-scope) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/091-hivm-infer-mem-scope.mlir"
+  },
+  {
+    "index": 92,
+    "pass": "hivm-decompose-op",
+    "header": "HIVMDecomposeOp (hivm-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/092-hivm-decompose-op.mlir"
+  },
+  {
+    "index": 93,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/093-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 94,
+    "pass": "hivm-recognize-deinterleave-op",
+    "header": "HIVMRecognizeDeinterleaveOp (hivm-recognize-deinterleave-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/094-hivm-recognize-deinterleave-op.mlir"
+  },
+  {
+    "index": 95,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/095-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 96,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/096-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 97,
+    "pass": "hivm-align-alloc-size",
+    "header": "AlignAllocSize (hivm-align-alloc-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/097-hivm-align-alloc-size.mlir"
+  },
+  {
+    "index": 98,
+    "pass": "hivm-mark-stride-align",
+    "header": "MarkStrideAlign (hivm-mark-stride-align) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/098-hivm-mark-stride-align.mlir"
+  },
+  {
+    "index": 99,
+    "pass": "fold-alloc-reshape",
+    "header": "FoldAllocReshapeOp (fold-alloc-reshape) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/099-fold-alloc-reshape.mlir"
+  },
+  {
+    "index": 100,
+    "pass": "hivm-enable-stride-align",
+    "header": "EnableStrideAlign (hivm-enable-stride-align) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/100-hivm-enable-stride-align.mlir"
+  },
+  {
+    "index": 101,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/101-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 102,
+    "pass": "hivm-infer-data-layout",
+    "header": "InferHIVMDataLayout (hivm-infer-data-layout) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/102-hivm-infer-data-layout.mlir"
+  },
+  {
+    "index": 103,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/103-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 104,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/104-canonicalize-ext.mlir"
+  },
+  {
+    "index": 105,
+    "pass": "hivm-auto-infer-buffer-size",
+    "header": "AutoInferBufferSize (hivm-auto-infer-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/105-hivm-auto-infer-buffer-size.mlir"
+  },
+  {
+    "index": 106,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/106-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 107,
+    "pass": "hivm-constantize-buffer-size",
+    "header": "ConstantizeBufferSize (hivm-constantize-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/107-hivm-constantize-buffer-size.mlir"
+  },
+  {
+    "index": 108,
+    "pass": "hivm-set-buffer-size",
+    "header": "SetBufferSize (hivm-set-buffer-size) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/108-hivm-set-buffer-size.mlir"
+  },
+  {
+    "index": 109,
+    "pass": "hivm-flatten-ops",
+    "header": "HIVMFlattenOps (hivm-flatten-ops) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/109-hivm-flatten-ops.mlir"
+  },
+  {
+    "index": 110,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/110-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 111,
+    "pass": "hivm-reduce-rank-subview",
+    "header": "ReduceRankSubview (hivm-reduce-rank-subview) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/111-hivm-reduce-rank-subview.mlir"
+  },
+  {
+    "index": 112,
+    "pass": "hivm-lift-lowest-stride",
+    "header": "LiftLowestStride (hivm-lift-lowest-stride) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/112-hivm-lift-lowest-stride.mlir"
+  },
+  {
+    "index": 113,
+    "pass": "hivm-aggregated-decompose-op",
+    "header": "HIVMAggregatedDecomposeOp (hivm-aggregated-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/113-hivm-aggregated-decompose-op.mlir"
+  },
+  {
+    "index": 114,
+    "pass": "hivm-alloc-extra-buffer",
+    "header": "AllocExtraBuffer (hivm-alloc-extra-buffer) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/114-hivm-alloc-extra-buffer.mlir"
+  },
+  {
+    "index": 115,
+    "pass": "hivm-infer-mem-scope",
+    "header": "InferHIVMMemScope (hivm-infer-mem-scope) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/115-hivm-infer-mem-scope.mlir"
+  },
+  {
+    "index": 116,
+    "pass": "convert-arith-to-affine",
+    "header": "ConvertArithToAffine (convert-arith-to-affine) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/116-convert-arith-to-affine.mlir"
+  },
+  {
+    "index": 117,
+    "pass": "scf-canonicalize-iter-arg",
+    "header": "CanonicalizeIterArg (scf-canonicalize-iter-arg) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/117-scf-canonicalize-iter-arg.mlir"
+  },
+  {
+    "index": 118,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/118-canonicalize-ext.mlir"
+  },
+  {
+    "index": 119,
+    "pass": "scf-for-loop-canonicalization",
+    "header": "SCFForLoopCanonicalization (scf-for-loop-canonicalization) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/119-scf-for-loop-canonicalization.mlir"
+  },
+  {
+    "index": 120,
+    "pass": "cse",
+    "header": "CSE (cse) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/120-cse.mlir"
+  },
+  {
+    "index": 121,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/121-canonicalize-ext.mlir"
+  },
+  {
+    "index": 122,
+    "pass": "hivm-opt-single-point",
+    "header": "HIVMOptSinglePointOp (hivm-opt-single-point) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/122-hivm-opt-single-point.mlir"
+  },
+  {
+    "index": 123,
+    "pass": "canonicalize-ext",
+    "header": "ExtendedCanonicalizer (canonicalize-ext) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/123-canonicalize-ext.mlir"
+  },
+  {
+    "index": 124,
+    "pass": "memref-dse",
+    "header": "MemrefDeadStoreEliminationOp (memref-dse) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/124-memref-dse.mlir"
+  },
+  {
+    "index": 125,
+    "pass": "hivm-inline-load-copy",
+    "header": "InlineLoadCopy (hivm-inline-load-copy) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/125-hivm-inline-load-copy.mlir"
+  },
+  {
+    "index": 126,
+    "pass": "hivm-mark-multi-buffer",
+    "header": "MarkMultiBuffer (hivm-mark-multi-buffer) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/126-hivm-mark-multi-buffer.mlir"
+  },
+  {
+    "index": 127,
+    "pass": "hivm-plan-memory",
+    "header": "PlanMemory (hivm-plan-memory) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/127-hivm-plan-memory.mlir"
+  },
+  {
+    "index": 128,
+    "pass": "hivm-lower-to-loops",
+    "header": "HIVMLowerToLoops (hivm-lower-to-loops) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/128-hivm-lower-to-loops.mlir"
+  },
+  {
+    "index": 129,
+    "pass": "hivm-decompose-op",
+    "header": "HIVMDecomposeOp (hivm-decompose-op) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/129-hivm-decompose-op.mlir"
+  },
+  {
+    "index": 130,
+    "pass": "hivm-graph-sync-solver",
+    "header": "GraphSyncSolver (hivm-graph-sync-solver) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/130-hivm-graph-sync-solver.mlir"
+  },
+  {
+    "index": 131,
+    "pass": "lower-memref-ext",
+    "header": "LowerMemRefExt (lower-memref-ext) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/131-lower-memref-ext.mlir"
+  },
+  {
+    "index": 132,
+    "pass": "hivm-add-ffts-to-syncblocksetop",
+    "header": "AddFFTSToSyncBlockSetOp (hivm-add-ffts-to-syncblocksetop) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/132-hivm-add-ffts-to-syncblocksetop.mlir"
+  },
+  {
+    "index": 133,
+    "pass": "hivm-enable-multi-buffer",
+    "header": "EnableMultiBuffer (hivm-enable-multi-buffer) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/133-hivm-enable-multi-buffer.mlir"
+  },
+  {
+    "index": 134,
+    "pass": "hivm-lift-lowest-stride",
+    "header": "LiftLowestStride (hivm-lift-lowest-stride) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/134-hivm-lift-lowest-stride.mlir"
+  },
+  {
+    "index": 135,
+    "pass": "inline-scope",
+    "header": "InlineScope (inline-scope) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/135-inline-scope.mlir"
+  },
+  {
+    "index": 136,
+    "pass": "enable-hivmc-compatible-print",
+    "header": "EnableHIVMCCompatiblePrint (enable-hivmc-compatible-print) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/136-enable-hivmc-compatible-print.mlir"
+  },
+  {
+    "index": 137,
+    "pass": "annotation-lowering",
+    "header": "AnnotationLowering (annotation-lowering) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/137-annotation-lowering.mlir"
+  },
+  {
+    "index": 138,
+    "pass": "hivm-insert-init-and-finish-for-debug",
+    "header": "InsertInitAndFinishForDebug (hivm-insert-init-and-finish-for-debug) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/138-hivm-insert-init-and-finish-for-debug.mlir"
+  },
+  {
+    "index": 139,
+    "pass": "hivm-mark-disable-load",
+    "header": "MarkDisableLoad (hivm-mark-disable-load) ('func.func' operation: @add)",
+    "artifact": "${ASCEND_RUN}/passes/139-hivm-mark-disable-load.mlir"
+  },
+  {
+    "index": 140,
+    "pass": "hivm-mark-sync-block-lock-with-subblock",
+    "header": "MarkSyncBlockLockWithSubblock (hivm-mark-sync-block-lock-with-subblock) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/140-hivm-mark-sync-block-lock-with-subblock.mlir"
+  },
+  {
+    "index": 141,
+    "pass": "hivm-insert-free-lock-var-before-return",
+    "header": "InsertFreeLockVarBeforeReturn (hivm-insert-free-lock-var-before-return) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/141-hivm-insert-free-lock-var-before-return.mlir"
+  },
+  {
+    "index": 142,
+    "pass": "convert-hivm-to-std",
+    "header": "ConvertHIVMToStandard (convert-hivm-to-std) ('builtin.module' operation)",
+    "artifact": "${ASCEND_RUN}/passes/142-convert-hivm-to-std.mlir"
+  }
+]

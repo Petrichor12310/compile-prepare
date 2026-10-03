@@ -59,7 +59,14 @@ printf '5\n' | qemu-riscv64 build/rv-asm/factorial
 
 `make mlir` 实际执行通用 MLIR 14 的 VecAdd：SCF → 分支控制流 → LLVM 方言 → LLVM IR → 主机执行。验证全部 16 个向量元素为 1～16，校验和为 136，各阶段 IR 保存在 `results/mlir/`。
 
-官方 AscendNPU 示例及方言分析见 [MLIR 说明](mlir/README.md)。`make ascend` 仅在具备兼容 `bishengir-compile` 时捕获真实转换日志和设备对象。当前环境没有此工具，也没有完成 NPU 设备执行；通用 MLIR 的成功结果不能算作 AscendNPU 实测。
+AscendNPU 工具及实测过程见 [MLIR 说明](mlir/README.md)。在 x86_64 Ubuntu 中运行：
+
+```bash
+make install-ascend
+make ascend
+```
+
+已实测官方 AscendNPU IR 1.1.0 的 VecAdd 转换：142 份 pass IR、hivmc 后端 LLVM IR，以及 2648 字节的 Ascend 设备 ELF。安装入口补齐 hivmc / 毕昇路径，关键阶段 IR 和导出符号自动验证，证据保存在 `results/ascend/` 及 [验收快照](evidence/ascend/README.md)。本次没有 NPU 硬件执行。
 
 ## 文件与验证证据
 
@@ -73,3 +80,5 @@ printf '5\n' | qemu-riscv64 build/rv-asm/factorial
 GitHub Actions 在 Ubuntu 22.04 上执行构建、对照测试、编译观察和通用 MLIR 验证，上传 `results/`。本地验收记录与远程 CI 状态分别核实。
 
 `make clean` 仅移除本仓库的 `build/`。重新采集会覆盖对应实验文件，但保留原始课程资料。
+
+GitHub 上传仅需本仓库的 Contents / Workflows 读写权限，PR 协作权限按需添加，详见 [权限说明](docs/github-permissions.md)。

@@ -8,7 +8,7 @@ required = {"CC": "gcc", "CLANG": "clang-14", "LLVM_AS": "llvm-as-14",
             "OPT": "opt-14", "LLC": "llc-14", "RV_CC": "riscv64-linux-gnu-gcc",
             "QEMU": "qemu-riscv64"}
 optional = {"MLIR_OPT": "mlir-opt-14", "MLIR_TRANSLATE": "mlir-translate-14",
-            "BISHENGIR": "bishengir-compile"}
+            "BISHENGIR": "bishengir-compile", "BISHENGIR_OPT": "bishengir-opt"}
 rows = []
 for key, default in {**required, **optional}.items():
     command = tool(key, default)

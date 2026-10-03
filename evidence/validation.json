@@ -135,10 +135,28 @@
       {
         "key": "BISHENGIR",
         "command": [
-          "bishengir-compile"
+          "${ASCEND_TOOLS}/bin/bishengir-compile"
         ],
-        "path": null,
-        "required": false
+        "path": "${ASCEND_TOOLS}/bin/bishengir-compile",
+        "required": false,
+        "version": [
+          "bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) ",
+          "llvm 19.1.7 e4ce5939f6e1",
+          "Release build"
+        ]
+      },
+      {
+        "key": "BISHENGIR_OPT",
+        "command": [
+          "${ASCEND_TOOLS}/bin/bishengir-opt"
+        ],
+        "path": "${ASCEND_TOOLS}/bin/bishengir-opt",
+        "required": false,
+        "version": [
+          "bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) ",
+          "llvm 19.1.7 e4ce5939f6e1",
+          "Release build"
+        ]
       }
     ],
     "rv_target": "riscv64-linux-gnu"
@@ -212,11 +230,168 @@
     }
   ],
   "ascend": {
-    "status": "unavailable",
-    "tool": [
-      "bishengir-compile"
-    ],
+    "status": "compiled",
     "npu_executed": false,
-    "reason": "AscendNPU IR compiler is not installed; see mlir/README.md for sourced analysis."
-  }
+    "run": "${ASCEND_RUN}",
+    "target": "Ascend910B1",
+    "commands": [
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-compile",
+        "--version"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-compile",
+        "--help-hidden"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-compile",
+        "${PROJECT}/mlir/ascend_vecadd.mlir",
+        "--enable-hivm-compile",
+        "--target=Ascend910B1",
+        "--mlir-print-ir-after-all",
+        "--mlir-print-ir-module-scope",
+        "--mlir-disable-threading",
+        "-o",
+        "${ASCEND_RUN}/kernel.o"
+      ],
+      [
+        "readelf",
+        "-h",
+        "-s",
+        "${ASCEND_RUN}/kernel.o"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-opt",
+        "${ASCEND_RUN}/stages/01-input.mlir",
+        "-o",
+        "/dev/null"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-opt",
+        "${ASCEND_RUN}/stages/02-planned-memory.mlir",
+        "-o",
+        "/dev/null"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-opt",
+        "${ASCEND_RUN}/stages/03-synchronized.mlir",
+        "-o",
+        "/dev/null"
+      ],
+      [
+        "${ASCEND_TOOLS}/bin/bishengir-opt",
+        "${ASCEND_RUN}/stages/04-template-calls.mlir",
+        "-o",
+        "/dev/null"
+      ]
+    ],
+    "tool": [
+      "${ASCEND_TOOLS}/bin/bishengir-compile"
+    ],
+    "version": "bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) \nllvm 19.1.7 e4ce5939f6e1\nRelease build",
+    "input_sha256": "76cd147a8c9546950ff265ef0d420fd32629c2ce37971ef328ab8c3b7e2036ab",
+    "exit_code": 0,
+    "pass_count": 142,
+    "llvm_ir_captured": true,
+    "backend_calls": [
+      {
+        "tool": "hivmc",
+        "executable": "${ASCEND_TOOLS}/ir-package/bishengir/bin/hivmc",
+        "arguments": [
+          "--version"
+        ],
+        "inputs": []
+      },
+      {
+        "tool": "hivmc",
+        "executable": "${ASCEND_TOOLS}/ir-package/bishengir/bin/hivmc",
+        "arguments": [
+          "${TEMP}/module.hivm.opt.mlir",
+          "--enable-debug-info=false",
+          "--enable-static-bare-ptr=true",
+          "--enable-bin-relocation=true",
+          "--enable-hivm-inject-barrier-all-sync=false",
+          "--enable-sanitizer=false",
+          "-o",
+          "${ASCEND_RUN}/kernel.o"
+        ],
+        "inputs": [
+          {
+            "original": "${TEMP}/module.hivm.opt.mlir",
+            "saved": "1791003914567299665-hivmc-0.mlir"
+          }
+        ]
+      },
+      {
+        "tool": "bisheng",
+        "executable": "${ASCEND_TOOLS}/bisheng-package/bisheng_compiler/bin/bisheng",
+        "arguments": [
+          "${ASCEND_RUN}/kernel.ll",
+          "-o",
+          "${ASCEND_RUN}/kernel.o",
+          "--cce-aicore-arch=dav-c220-vec",
+          "--cce-aicore-only",
+          "-O2",
+          "-cce-bitcode-is-aicore",
+          "-Wno-override-module",
+          "-cce-link-aicore-ll-module",
+          "${ASCEND_TOOLS}/ir-package/bishengir/lib/meta_op.aiv.bc",
+          "-mllvm",
+          "-cce-aicore-dcci-insert-for-scalar=false",
+          "--cce-aicore-input-parameter-size=1536"
+        ],
+        "inputs": [
+          {
+            "original": "${ASCEND_RUN}/kernel.ll",
+            "saved": "1791003914717958674-bisheng-0.ll"
+          }
+        ]
+      }
+    ],
+    "elf": {
+      "sha256": "8648e77ea908bf87749e786ccaf77ed76155176b3a72454800e91b31c8627f4f",
+      "bytes": 2648,
+      "machine": "0x1029 (Ascend/HIIPU)",
+      "type": 2
+    },
+    "installation": {
+      "status": "ready",
+      "url": "https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%209.0.0/Ascend-cann-toolkit_9.0.0_linux-x86_64.run",
+      "sha256": "56f0ea2cc3c193921bcd35b814ef635b668d1bce349fdb6a04cb0ec4b6f1bc06",
+      "prefix": "${ASCEND_TOOLS}",
+      "components": {
+        "ascendnpu-ir_1.1.0_linux-x86.run": "89739ea4df108b4b55c8a81dde03dc91013412a2197e52d1afc1e2cd72d2e801",
+        "cann-bisheng-compiler_9.0.0_linux-x86_64.run": "3d8b5148fce72f5bc9b535fbd10813ca60cbd05c9f9c2086974ef0f74a6b35f4"
+      },
+      "versions": {
+        "bishengir-compile": "bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) \nllvm 19.1.7 e4ce5939f6e1\nRelease build",
+        "bishengir-opt": "bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) \nllvm 19.1.7 e4ce5939f6e1\nRelease build",
+        "hivmc": "hivmc 0.2.0 (3af4c111df44 2026-04-30)\nRelease build",
+        "bisheng": "2026-04-25T15:46:25+08:00 clang version 15.0.5 (clang-5c68a1cb1231 flang-5c68a1cb1231)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: ${ASCEND_TOOLS}/bisheng-package/bisheng_compiler/bin"
+      },
+      "method": "makeself --noexec extraction; no driver installation"
+    },
+    "verification": {
+      "date": "2026-10-03",
+      "compiled": true,
+      "exit_code": 0,
+      "pass_ir_count": 142,
+      "key_mlir_stages_verified": 4,
+      "llvm_ir_captured": true,
+      "elf_bytes": 2648,
+      "elf_sha256": "8648e77ea908bf87749e786ccaf77ed76155176b3a72454800e91b31c8627f4f",
+      "capture_preserved_binary": true,
+      "unwrapped_elf_sha256": "8648e77ea908bf87749e786ccaf77ed76155176b3a72454800e91b31c8627f4f",
+      "npu_executed": false,
+      "missing_tool_failure_checked": true,
+      "snapshots": {
+        "01-input.mlir": "76cd147a8c9546950ff265ef0d420fd32629c2ce37971ef328ab8c3b7e2036ab",
+        "02-planned-memory.mlir": "2007d40dcb8a4ae7a58a5013aa923f69c68ce915314f802c648eba3ee2b5248f",
+        "03-synchronized.mlir": "2be630767967480b8b7214e1271cb5a68f0b9bfce54cc20fe9c5401ac8358adb",
+        "04-template-calls.mlir": "d9200fa9bccaac95a5d196f76538cc5d6d1803cb5abafa9b273dabfb8aed796b"
+      },
+      "llvm_snapshot_sha256": "911ad2b572ced98885500696cfd323f9b837ffaac939fed0c599c687ab0a1004"
+    }
+  },
+  "regression_rechecked": "2026-10-03: 165/165 equivalence checks and MLIR checksum 136"
 }

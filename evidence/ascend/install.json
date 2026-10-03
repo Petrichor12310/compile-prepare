@@ -1,0 +1,17 @@
+{
+  "status": "ready",
+  "url": "https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%209.0.0/Ascend-cann-toolkit_9.0.0_linux-x86_64.run",
+  "sha256": "56f0ea2cc3c193921bcd35b814ef635b668d1bce349fdb6a04cb0ec4b6f1bc06",
+  "prefix": "${ASCEND_TOOLS}",
+  "components": {
+    "ascendnpu-ir_1.1.0_linux-x86.run": "89739ea4df108b4b55c8a81dde03dc91013412a2197e52d1afc1e2cd72d2e801",
+    "cann-bisheng-compiler_9.0.0_linux-x86_64.run": "3d8b5148fce72f5bc9b535fbd10813ca60cbd05c9f9c2086974ef0f74a6b35f4"
+  },
+  "versions": {
+    "bishengir-compile": "bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) \nllvm 19.1.7 e4ce5939f6e1\nRelease build",
+    "bishengir-opt": "bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) \nllvm 19.1.7 e4ce5939f6e1\nRelease build",
+    "hivmc": "hivmc 0.2.0 (3af4c111df44 2026-04-30)\nRelease build",
+    "bisheng": "2026-04-25T15:46:25+08:00 clang version 15.0.5 (clang-5c68a1cb1231 flang-5c68a1cb1231)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: ${ASCEND_TOOLS}/bisheng-package/bisheng_compiler/bin"
+  },
+  "method": "makeself --noexec extraction; no driver installation"
+}

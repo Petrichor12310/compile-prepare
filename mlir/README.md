@@ -1,43 +1,85 @@
-# VecAdd 实验及官方 AscendNPU 分析
+# VecAdd 的两条真实转换链
 
-## 实际可运行的通用 MLIR
+## 通用 MLIR 14
 
-`vecadd.mlir` 使用上游 MLIR 14。`make mlir` 保留每一阶段的真实产物：
+`make mlir` 实际执行 SCF → 分支控制流 → LLVM 方言 → LLVM IR → 主机程序。
+完整向量为 1～16，校验和为 136，产物保存在 `results/mlir/`。
 
-| 阶段 | 可查看的变化 | 输出文件 |
-| --- | --- | --- |
-| 输入 | scf.for、memref、arith 及函数调用 | 01-input.mlir |
-| --convert-scf-to-std | 循环成为基本块、条件分支及回边参数 | 02-control-flow.mlir |
-| memref/arith/std 转换 | 内存描述符、算术和函数转换为 LLVM 方言 | 03-llvm-dialect.mlir |
-| --mlir-to-llvmir | MLIR 导出为 LLVM IR | 04-llvm.ll |
-| Clang 编译后执行 | 输出完整向量 1～16 和校验和 136 | stdout.txt、validation.json |
+## 安装 AscendNPU 编译工具
 
-本例不包含 Ascend 专属方言，也不是 Ascend 逐层转换日志。
+在 x86_64 Ubuntu 22.04 / WSL Ubuntu 的项目目录运行：
 
-## 官方 AscendNPU VecAdd
+```bash
+make install-ascend
+make doctor
+make ascend
+```
 
-`ascend_vecadd.mlir` 引用官方快速入门，访问日期 2026-10-03：
-https://ascendnpu-ir.gitcode.com/en/sources/introduction/quick_start/examples.html
+安装脚本下载官方 CANN 9.0.0 包，校验固定 SHA-256，用
+`--noexec --extract` 提取 AscendNPU IR 1.1.0 和毕昇编译组件。
+下载约 1.2 GB，缓存及解包需要约 4 GB。工具默认位于
+`~/.local/share/compile-prepare/ascend/`，路径写入 `toolchain.local.mk`，
+保留已有 QEMU 等设置。不安装 CANN 服务或 NPU 驱动。
 
-| 官方例子的操作或属性 | 可以直接观察的信息 |
+已有安装包时可离线复用：
+
+```bash
+python3 scripts/install_ascend.py --package /path/to/Ascend-cann-toolkit_9.0.0_linux-x86_64.run
+```
+
+包来源、哈希和工具版本保存在 `results/ascend-install.json`：
+
+- `bishengir-compile` / `bishengir-opt`：1.1.0，版本 `428ab8fdab46`，LLVM 19.1.7。
+- `hivmc`：0.2.0，版本 `3af4c111df44`。
+- `bisheng`：CANN 9.0.0 中的 clang 15.0.5。
+
+Ascend 使用独立工具链，RV64 和通用 MLIR 实验仍使用 LLVM 14。
+编译器会从 PATH 调用 hivmc，后者再调用 bisheng；安装启动器补齐两项依赖。
+
+## AscendNPU 实测转换
+
+`ascend_vecadd.mlir` 来自官方 VecAdd：三个长度 16 的 i16 GM 参数、
+两次 GM → UB 加载、UB 上的向量加法及一次 UB → GM 存储。
+
+2026-10-03 在 WSL 中显式选择 `Ascend910B1` 编译，退出码为 0。
+采集 **142 次前端 pass 执行的 IR**，生成 **2648 字节的 Ascend 设备 ELF**。
+`results/ascend/status.json` 指向本次运行目录，产物如下：
+
+| 产物 | 本次观察 |
 | --- | --- |
-| func.func @add 的三个参数 | 两个输入与一个输出，长度 16 的 i16 memref |
-| #hivm.address_space<gm> | 外部输入输出使用全局内存空间 |
-| memref.alloc 和 #hivm.address_space<ub> | 三个局部向量缓冲区位于 UB 空间 |
-| hivm.hir.load | 两次把输入从 GM 读入 UB |
-| hivm.hir.vadd | 在 UB 缓冲区上执行向量加法 |
-| hivm.hir.store | 将计算结果写回输出 GM |
-| hacc.entry、DEVICE | 标记设备函数入口及函数种类 |
+| `stages/01-input.mlir` | GM/UB memref 与 load/vadd/store |
+| `stages/02-planned-memory.mlir` | 最后一次 PlanMemory 后，alloc 成为 UB 地址 0、32；输出复用第一个输入缓冲区 |
+| `stages/03-synchronized.mlir` | MTE2 → V、V → MTE3 的 set_flag/wait_flag 和结尾 pipe_barrier |
+| `stages/04-template-calls.mlir` | load/vadd/store 降为 i16 模板调用，仍保留内存和同步信息 |
+| `stages/05-device.ll` | hivmc 实际交给毕昇的 LLVM IR；GM/UB 成为地址空间 1/6，入口参数成为裸指针 |
+| `passes.txt`、`passes/`、`pass-index.json` | 原始日志、独立模块 IR、pass 索引 |
+| `backend-inputs/` | 实际后端命令及临时 IR 副本 |
+| `kernel.o`、`elf.txt` | 设备 ELF 与头部/符号检查，存在 GLOBAL 函数 add |
 
-这些向量和硬件内存空间信息在普通 LLVM IR 中通常需要进一步表达为低层指令及数据结构，因此本项目关注它们在转换中的保留和改变。
+`capture_ascend_backend.py` 复制临时 IR、记录命令，然后 exec 原始后端；
+不改写 IR 或编译参数。实际命令确认使用 `--cce-aicore-arch=dav-c220-vec`
+并链接 `meta_op.aiv.bc`。142 份日志属于前端；hivmc 内部 pass 没有逐项导出，
+本项目保留其输入、最终 LLVM IR 和后端调用作为证据。
 
-官方编译入口为 `bishengir-compile add.mlir -enable-hivm-compile -o kernel.o`。设备运行需要另按官方示例配置 CANN 并注册/启动 NPU kernel。
+四个关键 MLIR 快照通过真实 bishengir-opt 的解析及验证。
+ELF Machine 为 `0x1029`（Ascend/HIIPU）。虽名为 kernel.o，其 ELF Type 是 EXEC，
+不应按普通 RV64 可重定位对象使用。
 
-`make ascend` 检查当前工具实际支持的 IR dump 选项，再执行官方编译模式并保存 stderr 中的转换日志；没有工具时生成 `results/ascend/status.json` 并返回失败。当前没有实测的 Ascend 转换链和 NPU 运行结果，不预设未经验证的逐层方言顺序。
+每次运行创建独立目录，验证 ELF 和导出符号后才报告成功。
+工具缺失或转换失败时返回非零、写入失败状态；已实测不会沿用旧成功记录。
 
-进一步查证入口：
+## 验证边界及证据
 
-- 官方例子源码：https://github.com/Ascend/AscendNPU-IR/blob/master/bishengir/test/Integration/HIVM/VecAdd/README.md
-- 学习 MLIR conversion 的辅助资料：https://mlir.llvm.org/docs/DialectConversion/
+本次完成 Ascend 编译转换，尚未在 NPU 硬件启动 kernel，
+`npu_executed=false`，没有 NPU 实测向量输出。
+上面的 1～16 / 136 属于通用 MLIR 主机运行。
 
-课件允许环境困难时以官方文档/源码分析呈现探索过程。这里保留具体示例分析与可运行的通用降低实验，二者标明各自证据边界。
+`evidence/ascend/` 保留本次完整 pass 日志、关键 IR、LLVM IR、ELF 头部和命令。
+命令中的本地目录以 `${PROJECT}`、`${ASCEND_TOOLS}`、`${ASCEND_RUN}` 占位，
+完整路径见本地 results。
+
+来源：
+
+- [官方 VecAdd](https://github.com/Ascend/AscendNPU-IR/blob/428ab8fdab46a879c7349caba4cde705bc8c9bb6/bishengir/test/Integration/HIVM/VecAdd/README.md)
+- [官方安装说明](https://github.com/Ascend/AscendNPU-IR/blob/master/docs/source/en/introduction/quick_start/installing_guide.md)
+- [官方 Dockerfile 中的安装包及提取方式](https://github.com/Ascend/AscendNPU-IR/blob/master/docker/Dockerfile.x86_64)

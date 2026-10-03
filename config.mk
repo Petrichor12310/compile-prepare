@@ -10,5 +10,7 @@ RV_AR := $(RV_PREFIX)ar
 QEMU := qemu-riscv64
 MLIR_OPT := mlir-opt-14
 MLIR_TRANSLATE := mlir-translate-14
+BISHENGIR := bishengir-compile
+BISHENGIR_OPT := bishengir-opt
 RV_FLAGS := -march=rv64gc -mabi=lp64d
 -include toolchain.local.mk

@@ -7,12 +7,12 @@ RV_IR := $(addprefix build/rv-ir/,$(SAMPLES))
 RV_ASM := $(addprefix build/rv-asm/,$(SAMPLES))
 CFLAGS := -std=c11 -O0 -g -Wall -Wextra -fno-common
 
-.PHONY: all build test doctor inspect mlir ascend test-course-runtime probe-course-runtime clean
+.PHONY: all build test doctor inspect mlir ascend install-ascend test-course-runtime probe-course-runtime clean
 all: build
 build: $(NATIVE) $(IR_NATIVE) $(RV_REFERENCE) $(RV_IR) $(RV_ASM)
 
 define settings
-CC='$(CC)' CLANG='$(CLANG)' LLVM_AS='$(LLVM_AS)' OPT='$(OPT)' LLC='$(LLC)' RV_CC='$(RV_CC)' RV_PREFIX='$(RV_PREFIX)' QEMU='$(QEMU)' MLIR_OPT='$(MLIR_OPT)' MLIR_TRANSLATE='$(MLIR_TRANSLATE)'
+CC='$(CC)' CLANG='$(CLANG)' LLVM_AS='$(LLVM_AS)' OPT='$(OPT)' LLC='$(LLC)' RV_CC='$(RV_CC)' RV_PREFIX='$(RV_PREFIX)' QEMU='$(QEMU)' MLIR_OPT='$(MLIR_OPT)' MLIR_TRANSLATE='$(MLIR_TRANSLATE)' BISHENGIR='$(BISHENGIR)' BISHENGIR_OPT='$(BISHENGIR_OPT)'
 endef
 
 doctor:
@@ -28,7 +28,10 @@ mlir: build/runtime/libsysy-native.a
 	$(settings) python3 scripts/lower_mlir.py
 
 ascend:
-	python3 scripts/ascend.py
+	$(settings) python3 scripts/ascend.py
+
+install-ascend:
+	python3 scripts/install_ascend.py
 
 probe-course-runtime:
 	$(settings) python3 scripts/probe_course_runtime.py
