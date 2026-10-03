@@ -28,12 +28,13 @@ make probe-course-runtime
 
 | 样例 | 验证内容 |
 | --- | --- |
+| `arithmetic` | 完整整数算术与比较、正负除法/取余、除零保护 |
 | `echo` | SysY 库调用、换行、32 位有符号整数边界 |
 | `factorial` | 常量、短路范围检查、函数调用、循环、整数运算 |
 | `control_scope` | 嵌套作用域、遮蔽、break/continue、&&/|| 副作用、! |
 | `array_float` | 二维数组、数组行传参、float 运算及向零截断 |
 
-`make test` 使用独立的 Python 预期模型，检查 **33 个用例 × 5 条链路 = 165 次运行**：主机 C、主机手写 IR、RV64 C、RV64 由手写 IR 自动生成的对象、RV64 手写汇编。每次运行有超时，比较完整 stdout 和退出状态，stderr 单独保存。
+`make test` 使用独立的 Python 预期模型，检查 **42 个用例 × 5 条链路 = 210 次运行**：主机 C、主机手写 IR、RV64 C、RV64 由手写 IR 自动生成的对象、RV64 手写汇编。每次运行有超时，比较完整 stdout 和退出状态，stderr 单独保存。
 
 ```bash
 printf '5\n' | build/native/factorial
@@ -45,9 +46,9 @@ printf '5\n' | qemu-riscv64 build/rv-asm/factorial
 
 ## 编译流程观察
 
-`make inspect` 在 `results/inspection/` 保存宏展开结果、Token、AST、主机 Clang IR、RV64 GCC 汇编、对象符号和重定位、可执行文件反汇编，以及 O0/O2 的代码段大小。
+`make inspect` 在 `results/inspection/` 保存宏展开结果、Token、AST、主机 Clang IR、RV64 GCC 汇编、对象符号和重定位、可执行文件反汇编，以及 O0/O2/O2 禁用内联的代码段大小。
 
-双文件辅助实验 `src/pipeline/` 展示从未解析函数符号到链接完成的变化；该辅助实验是 C 程序。每条处理链标明所用编译器，采集命令保存在 `commands.json`。O0/O2 都用正常及边界输入验证输出，不以单次短程序耗时推断性能。
+双文件辅助实验 `src/pipeline/` 展示从未解析函数符号到链接完成的变化；该辅助实验是 C 程序。每条处理链标明所用编译器，采集命令保存在 `commands.json`。三组优化配置都用正常及边界输入验证输出，不以单次短程序耗时推断性能。
 
 ## 运行时库
 
@@ -67,6 +68,8 @@ make ascend
 ```
 
 已实测官方 AscendNPU IR 1.1.0 的 VecAdd 转换：142 份 pass IR、hivmc 后端 LLVM IR，以及 2648 字节的 Ascend 设备 ELF。安装入口补齐 hivmc / 毕昇路径，关键阶段 IR 和导出符号自动验证，证据保存在 `results/ascend/` 及 [验收快照](evidence/ascend/README.md)。本次没有 NPU 硬件执行。
+
+推送前逐项检查见 [要求验收清单](docs/requirements-checklist.md)。
 
 ## 文件与验证证据
 

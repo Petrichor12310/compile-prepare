@@ -1,5 +1,5 @@
 include config.mk
-SAMPLES := echo factorial control_scope array_float
+SAMPLES := echo factorial control_scope array_float arithmetic
 NATIVE := $(addprefix build/native/,$(SAMPLES))
 IR_NATIVE := $(addprefix build/ir-native/,$(SAMPLES))
 RV_REFERENCE := $(addprefix build/rv-reference/,$(SAMPLES))

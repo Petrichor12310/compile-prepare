@@ -14,42 +14,42 @@
     ],
     [
       "${ASCEND_TOOLS}/bin/bishengir-compile",
-      "${PROJECT}/mlir/ascend_vecadd.mlir",
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/mlir/ascend_vecadd.mlir",
       "--enable-hivm-compile",
       "--target=Ascend910B1",
       "--mlir-print-ir-after-all",
       "--mlir-print-ir-module-scope",
       "--mlir-disable-threading",
       "-o",
-      "${ASCEND_RUN}/kernel.o"
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
     ],
     [
       "readelf",
       "-h",
       "-s",
-      "${ASCEND_RUN}/kernel.o"
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
     ],
     [
       "${ASCEND_TOOLS}/bin/bishengir-opt",
-      "${ASCEND_RUN}/stages/01-input.mlir",
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/01-input.mlir",
       "-o",
       "/dev/null"
     ],
     [
       "${ASCEND_TOOLS}/bin/bishengir-opt",
-      "${ASCEND_RUN}/stages/02-planned-memory.mlir",
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/02-planned-memory.mlir",
       "-o",
       "/dev/null"
     ],
     [
       "${ASCEND_TOOLS}/bin/bishengir-opt",
-      "${ASCEND_RUN}/stages/03-synchronized.mlir",
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/03-synchronized.mlir",
       "-o",
       "/dev/null"
     ],
     [
       "${ASCEND_TOOLS}/bin/bishengir-opt",
-      "${ASCEND_RUN}/stages/04-template-calls.mlir",
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/04-template-calls.mlir",
       "-o",
       "/dev/null"
     ]
@@ -82,12 +82,12 @@
         "--enable-hivm-inject-barrier-all-sync=false",
         "--enable-sanitizer=false",
         "-o",
-        "${ASCEND_RUN}/kernel.o"
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
       ],
       "inputs": [
         {
           "original": "${TEMP}/module.hivm.opt.mlir",
-          "saved": "1791003914567299665-hivmc-0.mlir"
+          "saved": "1791007690796463985-hivmc-0.mlir"
         }
       ]
     },
@@ -95,9 +95,9 @@
       "tool": "bisheng",
       "executable": "${ASCEND_TOOLS}/bisheng-package/bisheng_compiler/bin/bisheng",
       "arguments": [
-        "${ASCEND_RUN}/kernel.ll",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.ll",
         "-o",
-        "${ASCEND_RUN}/kernel.o",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o",
         "--cce-aicore-arch=dav-c220-vec",
         "--cce-aicore-only",
         "-O2",
@@ -111,8 +111,8 @@
       ],
       "inputs": [
         {
-          "original": "${ASCEND_RUN}/kernel.ll",
-          "saved": "1791003914717958674-bisheng-0.ll"
+          "original": "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.ll",
+          "saved": "1791007691082343851-bisheng-0.ll"
         }
       ]
     }

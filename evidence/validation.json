@@ -1,5 +1,5 @@
 {
-  "cases": 33,
+  "cases": 42,
   "lanes": [
     "native",
     "ir-native",
@@ -7,8 +7,8 @@
     "rv-ir",
     "rv-asm"
   ],
-  "checks": 165,
-  "passed": 165,
+  "checks": 210,
+  "passed": 210,
   "date": "2026-10-03",
   "clean_build": true,
   "python_syntax_checked": true,
@@ -177,7 +177,7 @@
         "artifact": "02-control-flow.mlir",
         "command": [
           "mlir-opt-14",
-          "${PROJECT}/results/mlir/01-input.mlir",
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/mlir/01-input.mlir",
           "--convert-scf-to-std"
         ]
       },
@@ -185,7 +185,7 @@
         "artifact": "03-llvm-dialect.mlir",
         "command": [
           "mlir-opt-14",
-          "${PROJECT}/results/mlir/02-control-flow.mlir",
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/mlir/02-control-flow.mlir",
           "--convert-memref-to-llvm",
           "--convert-arith-to-llvm",
           "--convert-std-to-llvm",
@@ -196,7 +196,7 @@
         "artifact": "04-llvm.ll",
         "command": [
           "mlir-translate-14",
-          "${PROJECT}/results/mlir/03-llvm-dialect.mlir",
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/mlir/03-llvm-dialect.mlir",
           "--mlir-to-llvmir"
         ]
       }
@@ -212,7 +212,7 @@
       "runtime/course-libsysy_riscv.a",
       "-static",
       "-o",
-      "${PROJECT}/results/course-runtime-probe/echo"
+      "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/course-runtime-probe/echo"
     ],
     "link_exit_code": 1,
     "status": "link-failed",
@@ -221,12 +221,24 @@
   },
   "optimization": [
     {
+      "variant": "O0",
       "optimization": 0,
-      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    184\t      0\t      0\t    184\t     b8\t${PROJECT}/results/inspection/factorial.O0.o\n"
+      "extra_flags": [],
+      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    184\t      0\t      0\t    184\t     b8\t/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0.o\n"
     },
     {
+      "variant": "O2",
       "optimization": 2,
-      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    124\t      0\t      0\t    124\t     7c\t${PROJECT}/results/inspection/factorial.O2.o\n"
+      "extra_flags": [],
+      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    124\t      0\t      0\t    124\t     7c\t/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2.o\n"
+    },
+    {
+      "variant": "O2-noinline",
+      "optimization": 2,
+      "extra_flags": [
+        "-fno-inline"
+      ],
+      "output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n     92\t      0\t      0\t     92\t     5c\t/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline.o\n"
     }
   ],
   "ascend": {
@@ -245,42 +257,42 @@
       ],
       [
         "${ASCEND_TOOLS}/bin/bishengir-compile",
-        "${PROJECT}/mlir/ascend_vecadd.mlir",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/mlir/ascend_vecadd.mlir",
         "--enable-hivm-compile",
         "--target=Ascend910B1",
         "--mlir-print-ir-after-all",
         "--mlir-print-ir-module-scope",
         "--mlir-disable-threading",
         "-o",
-        "${ASCEND_RUN}/kernel.o"
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
       ],
       [
         "readelf",
         "-h",
         "-s",
-        "${ASCEND_RUN}/kernel.o"
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
       ],
       [
         "${ASCEND_TOOLS}/bin/bishengir-opt",
-        "${ASCEND_RUN}/stages/01-input.mlir",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/01-input.mlir",
         "-o",
         "/dev/null"
       ],
       [
         "${ASCEND_TOOLS}/bin/bishengir-opt",
-        "${ASCEND_RUN}/stages/02-planned-memory.mlir",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/02-planned-memory.mlir",
         "-o",
         "/dev/null"
       ],
       [
         "${ASCEND_TOOLS}/bin/bishengir-opt",
-        "${ASCEND_RUN}/stages/03-synchronized.mlir",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/03-synchronized.mlir",
         "-o",
         "/dev/null"
       ],
       [
         "${ASCEND_TOOLS}/bin/bishengir-opt",
-        "${ASCEND_RUN}/stages/04-template-calls.mlir",
+        "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/stages/04-template-calls.mlir",
         "-o",
         "/dev/null"
       ]
@@ -313,12 +325,12 @@
           "--enable-hivm-inject-barrier-all-sync=false",
           "--enable-sanitizer=false",
           "-o",
-          "${ASCEND_RUN}/kernel.o"
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o"
         ],
         "inputs": [
           {
             "original": "${TEMP}/module.hivm.opt.mlir",
-            "saved": "1791003914567299665-hivmc-0.mlir"
+            "saved": "1791007690796463985-hivmc-0.mlir"
           }
         ]
       },
@@ -326,9 +338,9 @@
         "tool": "bisheng",
         "executable": "${ASCEND_TOOLS}/bisheng-package/bisheng_compiler/bin/bisheng",
         "arguments": [
-          "${ASCEND_RUN}/kernel.ll",
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.ll",
           "-o",
-          "${ASCEND_RUN}/kernel.o",
+          "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.o",
           "--cce-aicore-arch=dav-c220-vec",
           "--cce-aicore-only",
           "-O2",
@@ -342,8 +354,8 @@
         ],
         "inputs": [
           {
-            "original": "${ASCEND_RUN}/kernel.ll",
-            "saved": "1791003914717958674-bisheng-0.ll"
+            "original": "/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/${ASCEND_RUN}/kernel.ll",
+            "saved": "1791007691082343851-bisheng-0.ll"
           }
         ]
       }
@@ -390,8 +402,9 @@
         "03-synchronized.mlir": "2be630767967480b8b7214e1271cb5a68f0b9bfce54cc20fe9c5401ac8358adb",
         "04-template-calls.mlir": "d9200fa9bccaac95a5d196f76538cc5d6d1803cb5abafa9b273dabfb8aed796b"
       },
-      "llvm_snapshot_sha256": "911ad2b572ced98885500696cfd323f9b837ffaac939fed0c599c687ab0a1004"
+      "llvm_snapshot_sha256": "911ad2b572ced98885500696cfd323f9b837ffaac939fed0c599c687ab0a1004",
+      "prepush_rechecked_at": "2026-10-03T06:12:37.004208+00:00"
     }
   },
-  "regression_rechecked": "2026-10-03: 165/165 equivalence checks and MLIR checksum 136"
+  "regression_rechecked": "2026-10-03: clean build; 210/210 checks; 3 optimization variants; MLIR checksum 136; Ascend 142 pass dumps"
 }

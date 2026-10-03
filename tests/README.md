@@ -1,7 +1,8 @@
 # 行为测试
 
-执行 `make test`。脚本会对 33 个输入分别比较 5 条链路的 stdout 和返回状态。
+执行 `make test`。脚本会对 42 个输入分别比较 5 条链路的 stdout 和返回状态。
 
+- arithmetic：9 个用例，验证符号组合、向零除法、取余、比较、零被除数及除零保护。
 - echo：5 个用例，含 INT_MIN、INT_MAX。
 - factorial：10 个用例，含非法范围、0、1、12 及整数极值。
 - control_scope：11 个用例，验证 break、continue、作用域遮蔽及短路调用次数。

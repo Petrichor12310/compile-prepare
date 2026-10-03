@@ -21,6 +21,15 @@ def hex_float(value):
 
 def cases():
     result = []
+    for a, b in [(7, 3), (-7, 3), (7, -3), (-7, -3), (0, 3), (3, 3), (-3, -3), (10000, -9999), (7, 0)]:
+        if b == 0:
+            expected = "-1\n"
+        else:
+            quotient = abs(a) // abs(b) * (-1 if (a < 0) != (b < 0) else 1)
+            values = [a + b, a - b, a * b, quotient, a - quotient * b, -a, a,
+                      a < b, a <= b, a > b, a >= b, a == b, a != b]
+            expected = "".join(f"{int(value)}\n" for value in values)
+        result.append(("arithmetic", f"arithmetic_{a}_{b}", f"{a} {b}\n", expected))
     for n in [-2147483648, -7, 0, 7, 2147483647]:
         result.append(("echo", f"echo_{n}", f"{n}\n", f"{n}\n"))
     for n in [-2147483648, -1, 0, 1, 2, 5, 10, 12, 13, 2147483647]:

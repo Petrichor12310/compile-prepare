@@ -1,0 +1,250 @@
+[
+  {
+    "command": "clang-14 -I runtime -I src/pipeline -E src/pipeline/main.c",
+    "exit_code": 0,
+    "artifact": "results/inspection/preprocessed.i"
+  },
+  {
+    "command": "clang-14 -I runtime -I src/pipeline -Xclang -dump-tokens -fsyntax-only src/pipeline/main.c",
+    "exit_code": 0,
+    "artifact": "results/inspection/tokens.txt"
+  },
+  {
+    "command": "clang-14 -I runtime -I src/pipeline -Xclang -ast-dump -fsyntax-only src/pipeline/main.c",
+    "exit_code": 0,
+    "artifact": "results/inspection/ast.txt"
+  },
+  {
+    "command": "clang-14 -I runtime -I src/pipeline -S -emit-llvm -O0 src/pipeline/main.c -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.ll"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -I runtime -I src/pipeline -march=rv64gc -mabi=lp64d -S -O0 src/pipeline/main.c -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.s"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -c '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.s' -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.o"
+  },
+  {
+    "command": "riscv64-linux-gnu-nm '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.symbols.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-readelf -rW '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.relocations.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-objdump -dr '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/main.disassembly.txt"
+  },
+  {
+    "command": "clang-14 -I runtime -I src/pipeline -S -emit-llvm -O0 src/pipeline/compute.c -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.ll"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -I runtime -I src/pipeline -march=rv64gc -mabi=lp64d -S -O0 src/pipeline/compute.c -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.s"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -c '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.s' -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.o"
+  },
+  {
+    "command": "riscv64-linux-gnu-nm '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.symbols.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-readelf -rW '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.relocations.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-objdump -dr '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/compute.disassembly.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/main.o' '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/compute.o' build/runtime/libsysy-rv.a -static -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/pipeline'",
+    "exit_code": 0,
+    "artifact": "results/inspection/pipeline"
+  },
+  {
+    "command": "riscv64-linux-gnu-readelf -h '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/pipeline'",
+    "exit_code": 0,
+    "artifact": "results/inspection/executable.elf.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-nm '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/pipeline'",
+    "exit_code": 0,
+    "artifact": "results/inspection/executable.symbols.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-objdump -d '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/pipeline'",
+    "exit_code": 0,
+    "artifact": "results/inspection/executable.disassembly.txt"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/pipeline'",
+    "exit_code": 0,
+    "stdin": "5\n",
+    "stdout": "120\n"
+  },
+  {
+    "command": "clang-14 -include runtime/sylib.h -x c src/factorial.sy -O0 -S -emit-llvm -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O0.ll"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -include runtime/sylib.h -x c src/factorial.sy -O0 -S -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O0.s"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -c '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0.s' -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O0.o"
+  },
+  {
+    "command": "riscv64-linux-gnu-size '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O0.size.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0.o' build/runtime/libsysy-rv.a -static -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O0"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0'",
+    "exit_code": 0,
+    "stdin": "0\n",
+    "stdout": "1\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0'",
+    "exit_code": 0,
+    "stdin": "5\n",
+    "stdout": "120\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0'",
+    "exit_code": 0,
+    "stdin": "12\n",
+    "stdout": "479001600\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O0'",
+    "exit_code": 0,
+    "stdin": "13\n",
+    "stdout": "-1\n"
+  },
+  {
+    "command": "clang-14 -include runtime/sylib.h -x c src/factorial.sy -O2 -S -emit-llvm -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2.ll"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -include runtime/sylib.h -x c src/factorial.sy -O2 -S -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2.s"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -c '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2.s' -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2.o"
+  },
+  {
+    "command": "riscv64-linux-gnu-size '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2.size.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2.o' build/runtime/libsysy-rv.a -static -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2'",
+    "exit_code": 0,
+    "stdin": "0\n",
+    "stdout": "1\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2'",
+    "exit_code": 0,
+    "stdin": "5\n",
+    "stdout": "120\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2'",
+    "exit_code": 0,
+    "stdin": "12\n",
+    "stdout": "479001600\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2'",
+    "exit_code": 0,
+    "stdin": "13\n",
+    "stdout": "-1\n"
+  },
+  {
+    "command": "clang-14 -include runtime/sylib.h -x c src/factorial.sy -O2 -fno-inline -S -emit-llvm -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2-noinline.ll"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -include runtime/sylib.h -x c src/factorial.sy -O2 -fno-inline -S -o -",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2-noinline.s"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc -march=rv64gc -mabi=lp64d -c '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline.s' -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2-noinline.o"
+  },
+  {
+    "command": "riscv64-linux-gnu-size '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline.o'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2-noinline.size.txt"
+  },
+  {
+    "command": "riscv64-linux-gnu-gcc '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline.o' build/runtime/libsysy-rv.a -static -o '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline'",
+    "exit_code": 0,
+    "artifact": "results/inspection/factorial.O2-noinline"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline'",
+    "exit_code": 0,
+    "stdin": "0\n",
+    "stdout": "1\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline'",
+    "exit_code": 0,
+    "stdin": "5\n",
+    "stdout": "120\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline'",
+    "exit_code": 0,
+    "stdin": "12\n",
+    "stdout": "479001600\n"
+  },
+  {
+    "command": "/opt/qemu/bin/qemu-riscv64 '/mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/inspection/factorial.O2-noinline'",
+    "exit_code": 0,
+    "stdin": "13\n",
+    "stdout": "-1\n"
+  }
+]

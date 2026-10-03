@@ -2379,4 +2379,4 @@ module attributes {dlti.target_system_spec = #dlti.target_system_spec<"NPU" : #h
 }
 
 
-[WARNING] Cannot find ld.lld under ${ASCEND_RUN}/backend-bin
+[WARNING] Cannot find ld.lld under /mnt/d/缪臻/日常应用/南开大学/大三上/编译系统原理/大作业/compile-prepare/results/ascend/run-20261003T060809874618Z/backend-bin

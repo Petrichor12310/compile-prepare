@@ -1,5 +1,59 @@
 [
   {
+    "sample": "arithmetic",
+    "name": "arithmetic_7_3",
+    "stdin": "7 3\n",
+    "expected": "10\n4\n21\n2\n1\n-7\n7\n0\n0\n1\n1\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_-7_3",
+    "stdin": "-7 3\n",
+    "expected": "-4\n-10\n-21\n-2\n-1\n7\n-7\n1\n1\n0\n0\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_7_-3",
+    "stdin": "7 -3\n",
+    "expected": "4\n10\n-21\n-2\n1\n-7\n7\n0\n0\n1\n1\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_-7_-3",
+    "stdin": "-7 -3\n",
+    "expected": "-10\n-4\n21\n2\n-1\n7\n-7\n1\n1\n0\n0\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_0_3",
+    "stdin": "0 3\n",
+    "expected": "3\n-3\n0\n0\n0\n0\n0\n1\n1\n0\n0\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_3_3",
+    "stdin": "3 3\n",
+    "expected": "6\n0\n9\n1\n0\n-3\n3\n0\n1\n0\n1\n1\n0\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_-3_-3",
+    "stdin": "-3 -3\n",
+    "expected": "-6\n0\n9\n1\n0\n3\n-3\n0\n1\n0\n1\n1\n0\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_10000_-9999",
+    "stdin": "10000 -9999\n",
+    "expected": "1\n19999\n-99990000\n-1\n1\n-10000\n10000\n0\n0\n1\n1\n0\n1\n"
+  },
+  {
+    "sample": "arithmetic",
+    "name": "arithmetic_7_0",
+    "stdin": "7 0\n",
+    "expected": "-1\n"
+  },
+  {
     "sample": "echo",
     "name": "echo_-2147483648",
     "stdin": "-2147483648\n",

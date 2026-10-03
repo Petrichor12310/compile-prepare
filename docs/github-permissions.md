@@ -12,11 +12,15 @@
 
 不用授予 Administration、组织管理、Secrets 或所有仓库的访问权限。
 
-截至 2026-10-03，连接读取到仓库的 `push=true`，但此前创建文件返回
-`403 Resource not accessible by integration`。用户的仓库写入权限和 GitHub App
-的安装授权是两个独立条件；当前证据还不能确定是 App 权限缺失还是安装范围未覆盖该仓库。
+2026-10-03 实测：本机 Git Credential Manager 保存的协作者账户具有仓库
+`push=true` 权限，现有 OAuth 授权包含 `repo` 和 `workflow`。本次使用本机 Git
+直接推送，不需要额外申请权限或调整 GitHub App。
 
-由仓库所属账号在 GitHub 的 Settings → Applications → Installed GitHub Apps
+此前连接器创建文件返回 `403 Resource not accessible by integration`。
+用户的仓库写入权限和 GitHub App 的安装授权是两个独立条件；该错误不能
+直接归因为协作者没有写入权限。
+
+若以后需要使用连接器写入，由仓库所属账号在 GitHub 的 Settings → Applications → Installed GitHub Apps
 中找到当前连接对应的 App，点击 Configure，确认 Only select repositories 包含本仓库。
 再检查 App 的 Contents/Workflows 权限及待批准的权限更新。安装者只能接受 App
 请求的权限，不能给第三方 App 自行添加未请求的权限。
