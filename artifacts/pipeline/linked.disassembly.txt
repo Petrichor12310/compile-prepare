@@ -1,0 +1,63 @@
+0000000000010802 <main>:
+   10802:	1101                	addi	sp,sp,-32
+   10804:	ec06                	sd	ra,24(sp)
+   10806:	e822                	sd	s0,16(sp)
+   10808:	1000                	addi	s0,sp,32
+   1080a:	09e000ef          	jal	ra,108a8 <getint>
+   1080e:	87aa                	mv	a5,a0
+   10810:	fef42623          	sw	a5,-20(s0)
+   10814:	fec42783          	lw	a5,-20(s0)
+   10818:	853e                	mv	a0,a5
+   1081a:	01e000ef          	jal	ra,10838 <factorial_ref>
+   1081e:	87aa                	mv	a5,a0
+   10820:	853e                	mv	a0,a5
+   10822:	212000ef          	jal	ra,10a34 <putint>
+   10826:	4529                	li	a0,10
+   10828:	21c000ef          	jal	ra,10a44 <putch>
+   1082c:	4781                	li	a5,0
+   1082e:	853e                	mv	a0,a5
+   10830:	60e2                	ld	ra,24(sp)
+   10832:	6442                	ld	s0,16(sp)
+   10834:	6105                	addi	sp,sp,32
+   10836:	8082                	ret
+
+0000000000010838 <factorial_ref>:
+   10838:	7179                	addi	sp,sp,-48
+   1083a:	f422                	sd	s0,40(sp)
+   1083c:	1800                	addi	s0,sp,48
+   1083e:	87aa                	mv	a5,a0
+   10840:	fcf42e23          	sw	a5,-36(s0)
+   10844:	fdc42783          	lw	a5,-36(s0)
+   10848:	2781                	sext.w	a5,a5
+   1084a:	0007c963          	bltz	a5,1085c <factorial_ref+0x24>
+   1084e:	fdc42783          	lw	a5,-36(s0)
+   10852:	0007871b          	sext.w	a4,a5
+   10856:	47b1                	li	a5,12
+   10858:	00e7d463          	bge	a5,a4,10860 <factorial_ref+0x28>
+   1085c:	57fd                	li	a5,-1
+   1085e:	a089                	j	108a0 <factorial_ref+0x68>
+   10860:	4785                	li	a5,1
+   10862:	fef42423          	sw	a5,-24(s0)
+   10866:	4789                	li	a5,2
+   10868:	fef42623          	sw	a5,-20(s0)
+   1086c:	a839                	j	1088a <factorial_ref+0x52>
+   1086e:	fe842783          	lw	a5,-24(s0)
+   10872:	873e                	mv	a4,a5
+   10874:	fec42783          	lw	a5,-20(s0)
+   10878:	02f707bb          	mulw	a5,a4,a5
+   1087c:	fef42423          	sw	a5,-24(s0)
+   10880:	fec42783          	lw	a5,-20(s0)
+   10884:	2785                	addiw	a5,a5,1
+   10886:	fef42623          	sw	a5,-20(s0)
+   1088a:	fec42783          	lw	a5,-20(s0)
+   1088e:	873e                	mv	a4,a5
+   10890:	fdc42783          	lw	a5,-36(s0)
+   10894:	2701                	sext.w	a4,a4
+   10896:	2781                	sext.w	a5,a5
+   10898:	fce7dbe3          	bge	a5,a4,1086e <factorial_ref+0x36>
+   1089c:	fe842783          	lw	a5,-24(s0)
+   108a0:	853e                	mv	a0,a5
+   108a2:	7422                	ld	s0,40(sp)
+   108a4:	6145                	addi	sp,sp,48
+   108a6:	8082                	ret
+

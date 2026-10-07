@@ -1,0 +1,55 @@
+TranslationUnitDecl 0x34cbebc8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x34cbf3f0 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x34cbf190 '__int128'
+|-TypedefDecl 0x34cbf460 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x34cbf1b0 'unsigned __int128'
+|-TypedefDecl 0x34cbf768 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x34cbf540 'struct __NSConstantString_tag'
+|   `-Record 0x34cbf4b8 '__NSConstantString_tag'
+|-TypedefDecl 0x34cbf800 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x34cbf7c0 'char *'
+|   `-BuiltinType 0x34cbec70 'char'
+|-TypedefDecl 0x34cbfaf8 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x34cbfaa0 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x34cbf8e0 'struct __va_list_tag'
+|     `-Record 0x34cbf858 '__va_list_tag'
+|-FunctionDecl 0x34d15730 <src/pipeline/constants.h:4:1, col:24> col:5 factorial_ref 'int (int)'
+| `-ParmVarDecl 0x34d15660 <col:19, col:23> col:23 n 'int'
+`-FunctionDecl 0x34d158d0 prev 0x34d15730 <src/pipeline/compute.c:2:1, line:7:1> line:2:5 factorial_ref 'int (int)'
+  |-ParmVarDecl 0x34d15838 <col:19, col:23> col:23 used n 'int'
+  `-CompoundStmt 0x34d15e30 <col:26, line:7:1>
+    |-IfStmt 0x34d15ad0 <line:3:5, col:47>
+    | |-BinaryOperator 0x34d15a68 <col:9, src/pipeline/constants.h:3:25> 'int' '||'
+    | | |-BinaryOperator 0x34d159d0 <src/pipeline/compute.c:3:9, col:13> 'int' '<'
+    | | | |-ImplicitCastExpr 0x34d159b8 <col:9> 'int' <LValueToRValue>
+    | | | | `-DeclRefExpr 0x34d15978 <col:9> 'int' lvalue ParmVar 0x34d15838 'n' 'int'
+    | | | `-IntegerLiteral 0x34d15998 <col:13> 'int' 0
+    | | `-BinaryOperator 0x34d15a48 <col:18, src/pipeline/constants.h:3:25> 'int' '>'
+    | |   |-ImplicitCastExpr 0x34d15a30 <src/pipeline/compute.c:3:18> 'int' <LValueToRValue>
+    | |   | `-DeclRefExpr 0x34d159f0 <col:18> 'int' lvalue ParmVar 0x34d15838 'n' 'int'
+    | |   `-IntegerLiteral 0x34d15a10 <src/pipeline/constants.h:3:25> 'int' 12
+    | `-ReturnStmt 0x34d15ac0 <src/pipeline/compute.c:3:39, col:47>
+    |   `-UnaryOperator 0x34d15aa8 <col:46, col:47> 'int' prefix '-'
+    |     `-IntegerLiteral 0x34d15a88 <col:47> 'int' 1
+    |-DeclStmt 0x34d15b90 <line:4:5, col:20>
+    | `-VarDecl 0x34d15b08 <col:5, col:19> col:9 used product 'int' cinit
+    |   `-IntegerLiteral 0x34d15b70 <col:19> 'int' 1
+    |-ForStmt 0x34d15db0 <line:5:5, col:45>
+    | |-DeclStmt 0x34d15c48 <col:10, col:19>
+    | | `-VarDecl 0x34d15bc0 <col:10, col:18> col:14 used i 'int' cinit
+    | |   `-IntegerLiteral 0x34d15c28 <col:18> 'int' 2
+    | |-<<<NULL>>>
+    | |-BinaryOperator 0x34d15cd0 <col:21, col:26> 'int' '<='
+    | | |-ImplicitCastExpr 0x34d15ca0 <col:21> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x34d15c60 <col:21> 'int' lvalue Var 0x34d15bc0 'i' 'int'
+    | | `-ImplicitCastExpr 0x34d15cb8 <col:26> 'int' <LValueToRValue>
+    | |   `-DeclRefExpr 0x34d15c80 <col:26> 'int' lvalue ParmVar 0x34d15838 'n' 'int'
+    | |-UnaryOperator 0x34d15d10 <col:29, col:31> 'int' prefix '++'
+    | | `-DeclRefExpr 0x34d15cf0 <col:31> 'int' lvalue Var 0x34d15bc0 'i' 'int'
+    | `-CompoundAssignOperator 0x34d15d80 <col:34, col:45> 'int' '*=' ComputeLHSTy='int' ComputeResultTy='int'
+    |   |-DeclRefExpr 0x34d15d28 <col:34> 'int' lvalue Var 0x34d15b08 'product' 'int'
+    |   `-ImplicitCastExpr 0x34d15d68 <col:45> 'int' <LValueToRValue>
+    |     `-DeclRefExpr 0x34d15d48 <col:45> 'int' lvalue Var 0x34d15bc0 'i' 'int'
+    `-ReturnStmt 0x34d15e20 <line:6:5, col:12>
+      `-ImplicitCastExpr 0x34d15e08 <col:12> 'int' <LValueToRValue>
+        `-DeclRefExpr 0x34d15de8 <col:12> 'int' lvalue Var 0x34d15b08 'product' 'int'

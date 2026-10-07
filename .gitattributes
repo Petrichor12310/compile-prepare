@@ -1,4 +1,5 @@
 * text=auto eol=lf
 *.a binary
+*.o binary
 # Preserve exact generated IR and stdout, including significant spaces.
-evidence/** -whitespace
+artifacts/** -whitespace

@@ -7,19 +7,13 @@ RV_IR := $(addprefix build/rv-ir/,$(SAMPLES))
 RV_ASM := $(addprefix build/rv-asm/,$(SAMPLES))
 CFLAGS := -std=c11 -O0 -g -Wall -Wextra -fno-common
 
-.PHONY: all build test doctor inspect mlir ascend install-ascend test-course-runtime probe-course-runtime clean
+.PHONY: all build inspect mlir ascend install-ascend clean
 all: build
 build: $(NATIVE) $(IR_NATIVE) $(RV_REFERENCE) $(RV_IR) $(RV_ASM)
 
 define settings
 CC='$(CC)' CLANG='$(CLANG)' LLVM_AS='$(LLVM_AS)' OPT='$(OPT)' LLC='$(LLC)' RV_CC='$(RV_CC)' RV_PREFIX='$(RV_PREFIX)' QEMU='$(QEMU)' MLIR_OPT='$(MLIR_OPT)' MLIR_TRANSLATE='$(MLIR_TRANSLATE)' BISHENGIR='$(BISHENGIR)' BISHENGIR_OPT='$(BISHENGIR_OPT)'
 endef
-
-doctor:
-	$(settings) python3 scripts/doctor.py
-
-test: build
-	$(settings) python3 scripts/test.py
 
 inspect: build
 	$(settings) python3 scripts/inspect.py
@@ -32,12 +26,6 @@ ascend:
 
 install-ascend:
 	python3 scripts/install_ascend.py
-
-probe-course-runtime:
-	$(settings) python3 scripts/probe_course_runtime.py
-
-test-course-runtime: build
-	$(settings) python3 scripts/test.py --course-runtime
 
 build/runtime/native.o: runtime/sylib.c runtime/sylib.h
 	@mkdir -p $(@D)

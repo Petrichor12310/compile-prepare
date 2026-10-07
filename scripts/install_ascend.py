@@ -96,7 +96,7 @@ exec "$compiler_root/ir-package/bishengir/bin/''' + name + '''" "$@"
                {"status": "ready", "url": URL, "sha256": digest, "prefix": str(prefix),
                 "components": component_hashes, "versions": versions,
                 "method": "makeself --noexec extraction; no driver installation"})
-    print("Ascend compiler ready. Run: make doctor && make ascend")
+    print("Ascend compiler ready. Run: make ascend")
 
 
 if __name__ == "__main__":

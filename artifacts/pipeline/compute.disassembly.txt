@@ -1,0 +1,60 @@
+
+/mnt/c/Users/18695/Desktop/compile-prepare/results/inspection/compute.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <factorial_ref>:
+   0:	7179                	addi	sp,sp,-48
+   2:	f422                	sd	s0,40(sp)
+   4:	1800                	addi	s0,sp,48
+   6:	87aa                	mv	a5,a0
+   8:	fcf42e23          	sw	a5,-36(s0)
+   c:	fdc42783          	lw	a5,-36(s0)
+  10:	2781                	sext.w	a5,a5
+  12:	0007c963          	bltz	a5,24 <.L2>
+			12: R_RISCV_BRANCH	.L2
+  16:	fdc42783          	lw	a5,-36(s0)
+  1a:	0007871b          	sext.w	a4,a5
+  1e:	47b1                	li	a5,12
+  20:	00e7d463          	bge	a5,a4,28 <.L3>
+			20: R_RISCV_BRANCH	.L3
+
+0000000000000024 <.L2>:
+  24:	57fd                	li	a5,-1
+  26:	a089                	j	68 <.L4>
+			26: R_RISCV_RVC_JUMP	.L4
+
+0000000000000028 <.L3>:
+  28:	4785                	li	a5,1
+  2a:	fef42423          	sw	a5,-24(s0)
+  2e:	4789                	li	a5,2
+  30:	fef42623          	sw	a5,-20(s0)
+  34:	a839                	j	52 <.L5>
+			34: R_RISCV_RVC_JUMP	.L5
+
+0000000000000036 <.L6>:
+  36:	fe842783          	lw	a5,-24(s0)
+  3a:	873e                	mv	a4,a5
+  3c:	fec42783          	lw	a5,-20(s0)
+  40:	02f707bb          	mulw	a5,a4,a5
+  44:	fef42423          	sw	a5,-24(s0)
+  48:	fec42783          	lw	a5,-20(s0)
+  4c:	2785                	addiw	a5,a5,1
+  4e:	fef42623          	sw	a5,-20(s0)
+
+0000000000000052 <.L5>:
+  52:	fec42783          	lw	a5,-20(s0)
+  56:	873e                	mv	a4,a5
+  58:	fdc42783          	lw	a5,-36(s0)
+  5c:	2701                	sext.w	a4,a4
+  5e:	2781                	sext.w	a5,a5
+  60:	fce7dbe3          	bge	a5,a4,36 <.L6>
+			60: R_RISCV_BRANCH	.L6
+  64:	fe842783          	lw	a5,-24(s0)
+
+0000000000000068 <.L4>:
+  68:	853e                	mv	a0,a5
+  6a:	7422                	ld	s0,40(sp)
+  6c:	6145                	addi	sp,sp,48
+  6e:	8082                	ret
